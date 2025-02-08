@@ -1,9 +1,17 @@
+require('dotenv').config(); 
 const express = require('express');
 const { resolve } = require('path');
-
+const mongoose = require('mongoose');
 const app = express();
-const port = 3010;
-
+const port = 3000;
+const dbUrl=process.env.MONGO_URI;
+mongoose.connect(dbUrl)
+.then((data) => {
+  console.log(`Connected to MongoDB ${data.connection.host}`);
+})
+.catch((err) => {
+  console.log(err);
+})
 app.use(express.static('static'));
 
 app.get('/', (req, res) => {
